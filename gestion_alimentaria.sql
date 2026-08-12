@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2026 a las 23:37:59
+-- Tiempo de generación: 12-08-2026 a las 20:45:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,6 +39,56 @@ CREATE TABLE `familiares` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `inventario`
+--
+
+CREATE TABLE `inventario` (
+  `id_inventario` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_ubicacion` int(11) NOT NULL,
+  `cantidad` decimal(8,2) NOT NULL,
+  `unidad_medida` enum('gramos','kg','litros','unidades','cajas','bolsas') NOT NULL,
+  `fecha_ingreso` datetime DEFAULT current_timestamp(),
+  `fecha_vencimiento` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id_producto` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `marca` varchar(100) DEFAULT NULL,
+  `categoria` varchar(50) DEFAULT NULL,
+  `tamanio_porcion` varchar(50) DEFAULT NULL,
+  `calorias` decimal(6,2) DEFAULT 0.00,
+  `proteinas` decimal(6,2) DEFAULT 0.00,
+  `carbohidratos` decimal(6,2) DEFAULT 0.00,
+  `grasas` decimal(6,2) DEFAULT 0.00,
+  `es_sin_gluten` tinyint(1) DEFAULT 0,
+  `es_diabetico` tinyint(1) DEFAULT 0,
+  `es_vegetariano` tinyint(1) DEFAULT 0,
+  `es_vegano` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ubicaciones`
+--
+
+CREATE TABLE `ubicaciones` (
+  `id_ubicacion` int(11) NOT NULL,
+  `tipo` enum('heladera','freezer','despensa','otro') NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -48,8 +98,8 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `cantidad_familiares` int(10) NOT NULL,
-  `fecha_registro` datetime DEFAULT current_timestamp(),
-  `Creacion_De_Cuenta` datetime DEFAULT NULL
+  `fecha_registro` datetime NOT NULL,
+  `Creacion_de_cuenta` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -62,6 +112,26 @@ CREATE TABLE `usuarios` (
 ALTER TABLE `familiares`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique` (`usuario_id`);
+
+--
+-- Indices de la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  ADD PRIMARY KEY (`id_inventario`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_ubicacion` (`id_ubicacion`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `ubicaciones`
+--
+ALTER TABLE `ubicaciones`
+  ADD PRIMARY KEY (`id_ubicacion`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -82,6 +152,24 @@ ALTER TABLE `familiares`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  MODIFY `id_inventario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `ubicaciones`
+--
+ALTER TABLE `ubicaciones`
+  MODIFY `id_ubicacion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -96,6 +184,13 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `familiares`
   ADD CONSTRAINT `familiares_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `inventario`
+--
+ALTER TABLE `inventario`
+  ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
+  ADD CONSTRAINT `inventario_ibfk_2` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicaciones` (`id_ubicacion`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
