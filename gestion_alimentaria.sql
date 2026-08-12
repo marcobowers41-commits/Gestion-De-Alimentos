@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-08-2026 a las 20:45:34
+-- Tiempo de generación: 12-08-2026 a las 20:59:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -77,6 +77,16 @@ CREATE TABLE `productos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `productos_que_no_gustan`
+--
+
+CREATE TABLE `productos_que_no_gustan` (
+  `Id_producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `ubicaciones`
 --
 
@@ -126,6 +136,12 @@ ALTER TABLE `inventario`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `productos_que_no_gustan`
+--
+ALTER TABLE `productos_que_no_gustan`
+  ADD UNIQUE KEY `Id_producto` (`Id_producto`);
 
 --
 -- Indices de la tabla `ubicaciones`
@@ -191,6 +207,12 @@ ALTER TABLE `familiares`
 ALTER TABLE `inventario`
   ADD CONSTRAINT `inventario_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
   ADD CONSTRAINT `inventario_ibfk_2` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicaciones` (`id_ubicacion`);
+
+--
+-- Filtros para la tabla `productos_que_no_gustan`
+--
+ALTER TABLE `productos_que_no_gustan`
+  ADD CONSTRAINT `productos_que_no_gustan_ibfk_1` FOREIGN KEY (`Id_producto`) REFERENCES `productos` (`id_producto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
