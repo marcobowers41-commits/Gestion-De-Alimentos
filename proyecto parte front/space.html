@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Stock</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="phone">
+    
+      <main class="app">
+        
+    <header class="blue-header">
+      
+      
+    <div class="brand">
+      <img src="assets/logo-fridge.png" alt="Food Stock" />
+      <strong>
+        Food <span>Stock</span>
+      </strong>
+    </div>
+      
+    </header>
+        <section class="white-panel space">
+          <h1>Mi Espacio</h1>
+          <button class="space-btn" onclick="window.location.href='fridge.html'"><i data-lucide="plus"></i> Heladera</button>
+          <button class="space-btn" onclick="window.location.href='pantry.html'"><i data-lucide="plus"></i> Almacen</button>
+          <button class="space-btn" onclick="window.location.href='freezer.html'"><i data-lucide="plus"></i> Frezer</button>
+          <button class="space-btn" onclick="window.location.href='food.html'"><i data-lucide="plus"></i> Armario</button>
+          
+          <div class="open-grid">
+            <button onclick="window.location.href='fridge.html'">Abrir<br/>Heladera</button>
+            <button onclick="window.location.href='pantry.html'">Abrir<br/>Almacen</button>
+            <button onclick="window.location.href='freezer.html'">Abrir<br/>Frezer</button>
+            <button onclick="window.location.href='food.html'">Abrir<br/>Armario</button>
+          </div>
+        </section>
+        
+    <nav class="bottom-nav">
+      <button class="active" onclick="window.location.href='space.html'">
+        <i data-lucide="home"></i>
+        <span>Inicio</span>
+      </button>
+      <button class="" onclick="window.location.href='account.html'">
+        <i data-lucide="user"></i>
+        <span>Cuenta</span>
+      </button>
+      <button>
+        <i data-lucide="bell"></i>
+        <span>Alertas</span>
+      </button>
+    </nav>
+      </main>
+  </div>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
