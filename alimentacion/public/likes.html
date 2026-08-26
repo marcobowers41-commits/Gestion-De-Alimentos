@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Stock</title>
+  <title>Food Stock - Preferencias</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -30,7 +30,7 @@
           <button class="like-row" onclick="this.classList.toggle('selected')"><b>Riñón</b><i data-lucide="x"></i></button>
           <button class="ver-mas">Ver más</button>
         </div>
-        <button class="next" onclick="window.location.href='food.html'">Siguiente</button>
+        <button id="btn-siguiente" class="next">Siguiente</button>
         
     <nav class="bottom-nav">
       <button class="" onclick="window.location.href='space.html'">
@@ -48,6 +48,7 @@
     </nav>
       </main>
   </div>
+  <script src="js/likes.js"></script>
   <script>
     lucide.createIcons();
   </script>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Stock</title>
+  <title>Food Stock - Gestión de Alimentos</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -19,15 +19,16 @@
       </strong>
     </div>
         <p class="italic center">Gestión de Alimentos</p>
-        <label class="food-row">Nombre: <input /></label>
-        <label class="food-row">Categoría: <input /></label>
-        <label class="food-row">Marca: <input /></label>
-        <label class="food-row">Cantidad: <input /></label>
-        <label class="food-row">Fecha de Ingreso: <input /></label>
-        <label class="food-row">Fecha de vencimiento: <input /></label>
-        <button class="next" onclick="window.location.href='space.html'">Siguiente</button>
+        <label class="food-row">Nombre: <input id="f-nombre" required /></label>
+        <label class="food-row">Categoría: <input id="f-categoria" required /></label>
+        <label class="food-row">Marca: <input id="f-marca" /></label>
+        <label class="food-row">Cantidad: <input id="f-cantidad" type="number" value="1" /></label>
+        <label class="food-row">Fecha de Ingreso: <input id="f-ingreso" type="date" /></label>
+        <label class="food-row">Fecha de vencimiento: <input id="f-vencimiento" type="date" /></label>
+        <button id="btn-siguiente" class="next">Siguiente</button>
       </main>
   </div>
+  <script src="js/food.js"></script>
   <script>
     lucide.createIcons();
   </script>

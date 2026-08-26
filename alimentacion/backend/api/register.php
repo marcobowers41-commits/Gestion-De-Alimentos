@@ -1,13 +1,17 @@
 <?php
+// backend/api/register.php
 
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
-
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit();
+}
 
 require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../controllers/AuthController.php';
+require_once __DIR__ . '/../Controllers/AuthController.php';
 require_once __DIR__ . '/../services/AuthService.php';
 require_once __DIR__ . '/../repositories/UserRepository.php';
 
@@ -15,10 +19,11 @@ $userRepository = new UserRepository($conn);
 $authService = new AuthService($userRepository);
 $authController = new AuthController($authService);
 
-$usuario = trim($_POST['usuario'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$password = $_POST['password'] ?? '';
-$cantidadFamiliares = $_POST['cantidadFamiliares'];
+$input = json_decode(file_get_contents('php://input'), true);
+$usuario = trim($_POST['usuario'] ?? $input['usuario'] ?? '');
+$email = trim($_POST['email'] ?? $input['email'] ?? '');
+$password = $_POST['password'] ?? $input['password'] ?? '';
+$cantidadFamiliares = (int)($_POST['cantidadFamiliares'] ?? $input['cantidadFamiliares'] ?? 1);
 
 $response = $authController->register(
     $usuario,
@@ -28,5 +33,4 @@ $response = $authController->register(
 );
 
 echo json_encode($response);
-
 ?>

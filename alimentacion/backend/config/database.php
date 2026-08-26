@@ -1,30 +1,30 @@
 <?php
-// config/database.php
-class Database {
-    private static $host = 'sql302.byetcluster.com';
-    private static $db   = 'if0_42586714_ll';
-    private static $user = 'if0_42586714';
-    private static $pass = 'Tecnica2junin';
-    private static $port = '3306';
-    private static $charset = 'utf8mb4';
-    private static $pdo = null;
+// backend/config/database.php
 
-    public static function getConnection() {
-        if (self::$pdo === null) {
-            $dsn = "mysql:host=" . self::$host . ";port=" . self::$port . ";dbname=" . self::$db . ";charset=" . self::$charset;
-            $options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-            ];
+$host = 'localhost';
+$db   = 'gestion_alimentaria';
+$user = 'root';
+$pass = '';
+$port = '3306';
+$charset = 'utf8mb4';
 
-            try {
-                // Si falla local, se puede cambiar a localhost en entorno local
-                self::$pdo = new PDO($dsn, self::$user, self::$pass, $options);
-            } catch (PDOException $e) {
-                die(json_encode(['status' => 'error', 'message' => 'Error de conexión: ' . $e->getMessage()]));
-            }
-        }
-        return self::$pdo;
+$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
+
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+try {
+    $conn = new PDO($dsn, $user, $pass, $options);
+} catch (PDOException $e) {
+    // Si falla gestion_alimentaria, intentar conectar a usuario por compatibilidad
+    try {
+        $dsnFallback = "mysql:host=$host;port=$port;dbname=usuario;charset=$charset";
+        $conn = new PDO($dsnFallback, $user, $pass, $options);
+    } catch (PDOException $e2) {
+        die(json_encode(['status' => 'error', 'message' => 'Error al conectar a la base de datos: ' . $e->getMessage()]));
     }
 }
+?>

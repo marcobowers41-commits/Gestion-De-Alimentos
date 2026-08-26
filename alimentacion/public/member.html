@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Stock</title>
+  <title>Food Stock - Integrantes</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -20,18 +20,19 @@
     </div>
         <p class="italic center">Integrantes de la Familia</p>
         <label>Ingrese el nombre del<br/>integrante:</label>
-        <input class="pill-input full" />
+        <input id="mem-nombre" class="pill-input full" />
         <label>Tipo de Alimentación:</label>
-        <div class="pill-grid">
+        <div id="mem-diets" class="pill-grid">
           <button type="button" class="pill" onclick="this.classList.toggle('selected')">Vegana<i></i></button>
           <button type="button" class="pill" onclick="this.classList.toggle('selected')">Celiaca<i></i></button>
           <button type="button" class="pill" onclick="this.classList.toggle('selected')">Omnívoro<i></i></button>
           <button type="button" class="pill" onclick="this.classList.toggle('selected')">Vegetariana<i></i></button>
           <button type="button" class="pill" onclick="this.classList.toggle('selected')">Diabética<i></i></button>
         </div>
-        <button class="next" onclick="window.location.href='allergies.html'">Siguiente</button>
+        <button id="btn-siguiente" class="next">Siguiente</button>
       </main>
   </div>
+  <script src="js/member.js"></script>
   <script>
     lucide.createIcons();
   </script>

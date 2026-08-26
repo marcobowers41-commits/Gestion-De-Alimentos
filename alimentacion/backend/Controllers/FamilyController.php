@@ -1,27 +1,20 @@
 <?php
-// controllers/FamilyController.php
+// backend/Controllers/FamilyController.php
+
 require_once __DIR__ . '/../services/FamilyService.php';
 
-class FamilyController {
-    private $familyService;
+class FamilyController
+{
+    private FamilyService $familyService;
 
-    public function __construct() {
-        $this->familyService = new FamilyService();
+    public function __construct(FamilyService $familyService)
+    {
+        $this->familyService = $familyService;
     }
 
-    public function updateCount($data) {
-        try {
-            if (!isset($data['cantidad'])) {
-                return ['status' => 'error', 'message' => 'Faltan datos requeridos.'];
-            }
-
-            // Simulamos usuario ID 1 por ahora
-            $userId = isset($data['usuario_id']) ? $data['usuario_id'] : 1; 
-            
-            $this->familyService->setFamilyCount($userId, (int)$data['cantidad']);
-            return ['status' => 'success', 'message' => 'Cantidad actualizada correctamente.'];
-        } catch (Exception $e) {
-            return ['status' => 'error', 'message' => $e->getMessage()];
-        }
+    public function updateCount(int $userId, int $cantidad): array
+    {
+        return $this->familyService->setFamilyCount($userId, $cantidad);
     }
 }
+?>

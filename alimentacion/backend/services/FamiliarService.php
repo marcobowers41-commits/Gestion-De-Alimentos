@@ -1,25 +1,66 @@
 <?php
-// services/FamiliarService.php
+// backend/services/FamiliarService.php
+
 require_once __DIR__ . '/../repositories/FamiliarRepository.php';
 
-class FamiliarService {
-    private $familiarRepository;
+class FamiliarService
+{
+    private FamiliarRepository $familiarRepository;
 
-    public function __construct() {
-        $this->familiarRepository = new FamiliarRepository();
+    public function __construct(FamiliarRepository $familiarRepository)
+    {
+        $this->familiarRepository = $familiarRepository;
     }
 
-    public function addMember($userId, $nombre, $tipoAlimentacion) {
-        if (empty(trim($nombre))) {
-            throw new Exception("El nombre no puede estar vacío.");
+    public function addMember(int $userId, string $nombre, array $tipoAlimentacion): array
+    {
+        $nombreLimpio = trim($nombre);
+
+        if (empty($nombreLimpio)) {
+            return [
+                'status'  => 'error',
+                'message' => 'Ingresá el nombre del integrante.'
+            ];
         }
-        return $this->familiarRepository->create($userId, $nombre, $tipoAlimentacion);
+
+        $id = $this->familiarRepository->create($userId, $nombreLimpio, $tipoAlimentacion);
+
+        if ($id === false) {
+            return [
+                'status'  => 'error',
+                'message' => 'No se pudo guardar el integrante familiar.'
+            ];
+        }
+
+        return [
+            'status'      => 'success',
+            'message'     => 'Integrante agregado correctamente.',
+            'familiar_id' => $id
+        ];
     }
 
-    public function updateHealthData($id, $userId, $alergias, $intolerancias) {
-        if ($id <= 0) {
-            throw new Exception("ID de familiar inválido.");
+    public function updateHealthData(int $familiarId, int $userId, string $alergias, array $intolerancias): array
+    {
+        if ($familiarId <= 0) {
+            return [
+                'status'  => 'error',
+                'message' => 'ID de integrante no válido.'
+            ];
         }
-        return $this->familiarRepository->updateAllergies($id, $userId, $alergias, $intolerancias);
+
+        $actualizado = $this->familiarRepository->updateHealth($familiarId, $userId, trim($alergias), $intolerancias);
+
+        if (!$actualizado) {
+            return [
+                'status'  => 'error',
+                'message' => 'No se pudieron actualizar los datos de salud.'
+            ];
+        }
+
+        return [
+            'status'  => 'success',
+            'message' => 'Alergias e intolerancias guardadas correctamente.'
+        ];
     }
 }
+?>

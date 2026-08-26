@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Stock</title>
+  <title>Food Stock - Registro</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -19,19 +19,21 @@
       </strong>
     </div>
         <h1>Bienvenido</h1>
-        <form>
-          <input placeholder="Email" />
-          <input placeholder="Nombre Completo" />
-          <input placeholder="Nombre de Usuario" />
-          <input placeholder="Contraseña" type="password" />
-          <input placeholder="Confirmar Contraseña" type="password" />
-          <button type="button" class="blue-btn big" onclick="window.location.href='family.html'">Registrarme</button>
+        <form id="registerForm">
+          <input name="email" placeholder="Email" type="email" required />
+          <input name="nombreCompleto" placeholder="Nombre Completo" />
+          <input name="usuario" placeholder="Nombre de Usuario" required />
+          <input id="reg-password" name="password" placeholder="Contraseña" type="password" required />
+          <input id="reg-password-confirm" name="confirmPassword" placeholder="Confirmar Contraseña" type="password" required />
+          <input type="hidden" name="cantidadFamiliares" value="1" />
+          <button type="submit" class="blue-btn big">Registrarme</button>
         </form>
-        <button class="text-link" onclick="window.location.href='forgot.html'">
-          ¿Olvidaste tu contraseña?
+        <button class="text-link" onclick="window.location.href='login.html'">
+          ¿Ya tenés cuenta? Iniciar sesión
         </button>
       </main>
   </div>
+  <script src="js/register.js"></script>
   <script>
     lucide.createIcons();
   </script>
